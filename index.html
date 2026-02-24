@@ -88,7 +88,7 @@
         }
 
         .btn-primary:hover {
-            background-color: #ea580c; /* темнее оранжевый */
+            background-color: #ea580c;
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(249, 115, 22, 0.4);
         }
@@ -106,7 +106,7 @@
             box-shadow: 0 6px 15px rgba(249, 115, 22, 0.3);
         }
 
-        /* ========== САЙДБАР (БОКОВАЯ НАВИГАЦИЯ) ========== */
+        /* ========== САЙДБАР ========== */
         .sidebar {
             position: fixed;
             left: 0;
@@ -170,6 +170,7 @@
             text-decoration: none;
             transition: color 0.2s, background 0.2s;
             border-radius: 30px 0 0 30px;
+            position: relative;
         }
 
         .nav-item i {
@@ -199,11 +200,11 @@
             border-right: 3px solid var(--accent);
         }
 
-        /* адаптация сайдбара для планшетов и мобильных */
+        /* мобильная адаптация сайдбара */
         @media (max-width: 992px) {
             body {
                 padding-left: 0;
-                padding-bottom: 80px; /* увеличенный отступ снизу для мобильной навигации */
+                padding-bottom: 80px;
             }
             .sidebar {
                 top: auto;
@@ -223,7 +224,7 @@
                 width: 100%;
             }
             .sidebar .logo-side {
-                display: none; /* логотип убираем на мобилках */
+                display: none;
             }
             .nav-items {
                 flex-direction: row;
@@ -242,17 +243,10 @@
                 font-size: 1.8rem;
             }
             .nav-item .nav-text {
-                display: none !important; /* всегда скрываем текст на мобилках и планшетах */
+                display: none !important;
             }
             .sidebar:hover .nav-item .nav-text {
                 display: none !important;
-            }
-        }
-
-        /* Дополнительная оптимизация для очень маленьких экранов */
-        @media (max-width: 480px) {
-            .nav-item i {
-                font-size: 1.6rem;
             }
         }
 
@@ -272,7 +266,6 @@
             font-size: 3rem;
             line-height: 1.2;
             margin-bottom: 10px;
-            color: var(--text-dark);
         }
 
         .slogan {
@@ -354,7 +347,6 @@
         .price-card .price {
             font-size: 2.2rem;
             font-weight: 700;
-            color: var(--text-dark);
             margin: 20px 0;
         }
 
@@ -446,6 +438,21 @@
             border-color: var(--accent);
         }
 
+        .form-error {
+            color: #e11d48;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-success {
+            color: #10b981;
+            font-size: 1rem;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+        }
+
         .social-links {
             display: flex;
             justify-content: center;
@@ -518,7 +525,7 @@
     </style>
 </head>
 <body>
-    <!-- САЙДБАР (БОКОВАЯ НАВИГАЦИЯ) -->
+    <!-- САЙДБАР -->
     <div class="sidebar">
         <div class="logo-side">
             <i class="fas fa-laptop-code" style="color: var(--accent);"></i>
@@ -548,7 +555,6 @@
         </div>
     </div>
 
-    <!-- ОСНОВНОЙ КОНТЕНТ -->
     <main>
         <!-- ГЕРО -->
         <section id="hero" class="hero">
@@ -563,7 +569,6 @@
                     </div>
                 </div>
                 <div class="hero-image fade-in">
-                    <!-- Абстрактное SVG (можно заменить на что-то своё) -->
                     <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="200" cy="150" r="120" fill="#FFEDD5" />
                         <circle cx="230" cy="130" r="30" fill="#F97316" />
@@ -702,12 +707,11 @@
             </div>
         </section>
 
-        <!-- КОНТАКТЫ И ФОРМА -->
+        <!-- КОНТАКТЫ -->
         <section id="contact" class="container fade-in">
             <h2>Хотите такой же? Напишите нам!</h2>
             <div class="contact-form">
-                <!-- ВСТАВЛЕН ВАШ ЛИЧНЫЙ FORMSPREE ID: mqedgvya -->
-                <form action="https://formspree.io/f/mqedgvya" method="POST">
+                <form id="contactForm" action="https://formspree.io/f/mqedgvya" method="POST">
                     <div class="form-group">
                         <input type="text" name="name" placeholder="Ваше имя" required>
                     </div>
@@ -715,30 +719,37 @@
                         <input type="email" name="email" placeholder="Email или Telegram" required>
                     </div>
                     <div class="form-group">
-                        <textarea name="message" rows="4" placeholder="Что хотите заказать?" required></textarea>
+                        <textarea name="prompt" id="prompt" rows="5" placeholder="Подробно опишите, какой сайт вам нужен (минимум 30 символов)" required></textarea>
+                        <div class="form-error" id="promptError">Промт должен содержать не менее 30 символов и не состоять из повторяющихся букв.</div>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width:100%;">Отправить</button>
+                    <div class="form-group">
+                        <textarea name="message" rows="4" placeholder="Дополнительные пожелания (необязательно)"></textarea>
+                    </div>
+                    <!-- Скрытое поле для защиты от частых отправок (время) -->
+                    <input type="hidden" name="_timestamp" id="timestamp" value="">
+                    <button type="submit" class="btn btn-primary" style="width:100%;" id="submitBtn">Отправить</button>
+                    <div class="form-success" id="formSuccess">Спасибо! Заявка отправлена.</div>
                 </form>
                 <div class="social-links">
-                    <a href="#" onclick="demoAlert(event)"><i class="fab fa-telegram"></i></a>
-                    <a href="#" onclick="demoAlert(event)"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" onclick="demoAlert(event)"><i class="fab fa-instagram"></i></a>
+                    <a href="https://t.me" target="_blank"><i class="fab fa-telegram"></i></a>
+                    <a href="https://wa.me" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
                 </div>
-                <p style="margin-top:15px; font-size:0.9rem;">* Нажимая «Отправить», вы соглашаетесь на обработку данных.</p>
             </div>
         </section>
     </main>
 
-    <!-- ПОДВАЛ -->
     <footer>
         <div class="container">
             © 2026 VibeCraft. Сделано двумя семиклассниками.
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script>
-        // Плавный скролл к секциям (сайдбар)
+        // Плавный скролл и подсветка активного пункта меню
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-item');
+
         function smoothScroll(target) {
             const element = document.querySelector(target);
             if (element) {
@@ -746,11 +757,104 @@
             }
         }
 
-        // Демо-заглушка для соцсетей (можно убрать, если появятся реальные ссылки)
-        function demoAlert(event) {
-            event.preventDefault();
-            alert('Это демо-версия. Скоро мы появимся в соцсетях!');
+        function setActiveLink() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100 && pageYOffset < sectionTop + sectionHeight - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                const href = item.getAttribute('href').substring(1); // убираем #
+                if (href === current) {
+                    item.classList.add('active');
+                }
+            });
         }
+
+        window.addEventListener('scroll', setActiveLink);
+        window.addEventListener('load', setActiveLink);
+
+        // Защита формы от спама и проверка промта
+        const form = document.getElementById('contactForm');
+        const promptInput = document.getElementById('prompt');
+        const promptError = document.getElementById('promptError');
+        const submitBtn = document.getElementById('submitBtn');
+        const formSuccess = document.getElementById('formSuccess');
+        const timestampInput = document.getElementById('timestamp');
+
+        // Функция проверки промта на осмысленность (не повтор букв)
+        function isValidPrompt(text) {
+            if (text.length < 30) return false;
+            // Проверка на повторяющиеся символы (например, "ааааа" или "11111")
+            const repeatRegex = /^(.)\1+$/; // строка из одного повторяющегося символа
+            if (repeatRegex.test(text)) return false;
+            // Дополнительно: проверка, что есть хотя бы несколько разных слов
+            const words = text.trim().split(/\s+/);
+            if (words.length < 3) return false; // минимум 3 слова
+            return true;
+        }
+
+        // Проверка, сколько времени прошло с последней отправки (localStorage)
+        function canSendForm() {
+            const lastSent = localStorage.getItem('lastFormSubmit');
+            if (!lastSent) return true;
+            const now = Date.now();
+            const diff = now - parseInt(lastSent, 10);
+            // 10 минут = 600000 мс
+            return diff > 600000;
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // сначала остановим отправку, проверим
+
+            // Проверка промта
+            if (!isValidPrompt(promptInput.value)) {
+                promptError.style.display = 'block';
+                return;
+            } else {
+                promptError.style.display = 'none';
+            }
+
+            // Проверка времени
+            if (!canSendForm()) {
+                alert('Вы уже отправляли заявку недавно. Попробуйте через 10 минут.');
+                return;
+            }
+
+            // Записываем временную метку в скрытое поле (можно для доп. защиты)
+            timestampInput.value = Date.now();
+
+            // Если всё ок, отправляем форму через Fetch, чтобы показать сообщение об успехе
+            const formData = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // Сохраняем время отправки
+                    localStorage.setItem('lastFormSubmit', Date.now());
+                    form.reset();
+                    formSuccess.style.display = 'block';
+                    submitBtn.disabled = true;
+                    setTimeout(() => {
+                        formSuccess.style.display = 'none';
+                        submitBtn.disabled = false;
+                    }, 5000);
+                } else {
+                    alert('Ошибка при отправке. Попробуйте позже.');
+                }
+            }).catch(error => {
+                alert('Ошибка соединения.');
+            });
+        });
 
         // Анимация появления при скролле
         document.addEventListener('DOMContentLoaded', function() {
