@@ -165,7 +165,7 @@
             background-color: #ea580c;
         }
 
-        /* ГЕРО (с формой справа) */
+        /* ГЕРО */
         .hero {
             padding: 60px 0 40px;
         }
@@ -367,7 +367,94 @@
             color: var(--accent);
         }
 
-        /* СОЦСЕТИ (внизу) */
+        /* ВАКАНСИИ */
+        .vacancy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .vacancy-card {
+            background: var(--card-bg);
+            border-radius: 32px;
+            padding: 35px 25px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .vacancy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .vacancy-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .vacancy-short {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .vacancy-details {
+            margin-top: 20px;
+            border-top: 1px solid #eef2f6;
+            padding-top: 20px;
+        }
+
+        .vacancy-details p {
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .vacancy-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .vacancy-details li {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vacancy-details li i {
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        details {
+            width: 100%;
+        }
+
+        summary {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            list-style: none;
+            text-align: center;
+            margin: 15px 0 0;
+        }
+
+        summary:hover {
+            background-color: #ea580c;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* СОЦСЕТИ */
         .social-links {
             display: flex;
             justify-content: center;
@@ -433,10 +520,7 @@
                 width: 100%;
                 text-align: center;
             }
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-            .team-grid {
+            .cards-grid, .team-grid, .vacancy-grid {
                 grid-template-columns: 1fr;
             }
             .hero-form {
@@ -455,6 +539,7 @@
                 <a href="#services" class="nav-link">Услуги</a>
                 <a href="#prices" class="nav-link">Цены</a>
                 <a href="#team" class="nav-link">Команда</a>
+                <a href="#vacancies" class="nav-link">Вакансии</a>
                 <a href="#contact" class="header-btn">Заказать сайт</a>
             </nav>
         </div>
@@ -603,7 +688,7 @@
             </div>
         </section>
 
-        <!-- КОМАНДА -->
+        <!-- КОМАНДА (ТЕПЕРЬ ТРОЕ) -->
         <section id="team" class="container fade-in">
             <h2>Наша команда</h2>
             <div class="team-grid">
@@ -616,6 +701,57 @@
                     <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
                     <h3>Александр</h3>
                     <p>Рекламщик. Находит общий язык с любым заказчиком и рассказывает всему миру о наших проектах.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar"><i class="fas fa-user-pen"></i></div>
+                    <h3>Анна</h3>
+                    <p>Промт-инженер. Помогает формулировать идеи и превращать их в понятные промты для ИИ, отвечает за качество контента.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ВАКАНСИИ -->
+        <section id="vacancies" class="container fade-in">
+            <h2>Мы ищем сотрудников</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 30px;">Присоединяйтесь к нашей команде! Открыты вакансии:</p>
+            <div class="vacancy-grid">
+                <!-- Копирайтер -->
+                <div class="vacancy-card">
+                    <h3>Копирайтер</h3>
+                    <p class="vacancy-short">Ищем креативного копирайтера для написания текстов для сайтов, соцсетей и презентаций. Удалёнка, гибкий график.</p>
+                    <details>
+                        <summary>Подробнее</summary>
+                        <div class="vacancy-details">
+                            <p><strong>Требования:</strong></p>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Грамотный русский язык</li>
+                                <li><i class="fas fa-check"></i> Опыт написания текстов для соцсетей/сайтов</li>
+                                <li><i class="fas fa-check"></i> Умение составлять структуру</li>
+                                <li><i class="fas fa-check"></i> Креативность</li>
+                                <li><i class="fas fa-check"></i> Будет плюсом знание английского</li>
+                                <li><i class="fas fa-check"></i> Опыт работы от 6 месяцев</li>
+                            </ul>
+                            <p><strong>Мы предлагаем:</strong> интересные проекты, дружная команда, оплата за результат.</p>
+                        </div>
+                    </details>
+                </div>
+                <!-- Графический дизайнер -->
+                <div class="vacancy-card">
+                    <h3>Графический дизайнер</h3>
+                    <p class="vacancy-short">Ищем дизайнера для создания макетов сайтов, логотипов и полиграфии. Работа удалённо.</p>
+                    <details>
+                        <summary>Подробнее</summary>
+                        <div class="vacancy-details">
+                            <p><strong>Требования:</strong></p>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Владение Figma, Photoshop/Illustrator</li>
+                                <li><i class="fas fa-check"></i> Понимание композиции и типографики</li>
+                                <li><i class="fas fa-check"></i> Наличие портфолио</li>
+                                <li><i class="fas fa-check"></i> Приветствуется опыт в веб-дизайне</li>
+                            </ul>
+                            <p><strong>Мы предлагаем:</strong> интересные задачи, возможность роста, оплата по договорённости.</p>
+                        </div>
+                    </details>
                 </div>
             </div>
         </section>
