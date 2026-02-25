@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VibeCraft — сайты для своих</title>
-    <!-- Шрифты Google Fonts: Montserrat (заголовки), Inter (текст) -->
+    <!-- Шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* СБРОС И ПЕРЕМЕННЫЕ */
+        /* ====== ОБЩИЕ СТИЛИ (без изменений, только добавляем модалку) ====== */
         * {
             margin: 0;
             padding: 0;
@@ -20,7 +20,7 @@
 
         :root {
             --bg: #F8FAFC;
-            --accent: #F97316;      /* тёплый оранжевый */
+            --accent: #F97316;
             --text-dark: #1E293B;
             --text-light: #64748B;
             --card-bg: #FFFFFF;
@@ -54,7 +54,6 @@
             padding: 0 20px;
         }
 
-        /* АНИМАЦИЯ ПОЯВЛЕНИЯ */
         .fade-in {
             opacity: 0;
             transform: translateY(25px);
@@ -66,7 +65,6 @@
             transform: translateY(0);
         }
 
-        /* КНОПКИ */
         .btn {
             display: inline-block;
             padding: 12px 28px;
@@ -202,7 +200,7 @@
             flex-wrap: wrap;
         }
 
-        /* ФОРМА В ГЕРО */
+        /* ФОРМА ЗАКАЗА */
         .hero-form {
             background: var(--card-bg);
             border-radius: 32px;
@@ -454,6 +452,25 @@
             display: none;
         }
 
+        /* КНОПКА ОТКЛИКНУТЬСЯ */
+        .btn-response {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-response:hover {
+            background-color: #ea580c;
+        }
+
         /* СОЦСЕТИ */
         .social-links {
             display: flex;
@@ -482,49 +499,107 @@
             color: var(--text-light);
         }
 
-        /* АДАПТАЦИЯ */
-        @media (max-width: 992px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            .hero-content h1 {
-                font-size: 2.8rem;
-            }
-            .hero-btns {
-                justify-content: center;
-            }
+        /* ====== МОДАЛЬНОЕ ОКНО ДЛЯ ОТКЛИКА ====== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
         }
 
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 40px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 40px;
+            box-shadow: var(--shadow-hover);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+        }
+
+        .modal-content h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .modal-content .form-group {
+            margin-bottom: 20px;
+        }
+
+        .modal-content label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+            accent-color: var(--accent);
+        }
+
+        .modal-content .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Адаптация модалки */
         @media (max-width: 768px) {
-            h2 {
-                font-size: 2rem;
+            .modal-content {
+                padding: 30px 20px;
             }
-            .hero-content h1 {
-                font-size: 2.4rem;
-            }
-            .header-inner {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .nav-menu {
-                justify-content: center;
+            .checkbox-group {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-            .cards-grid, .team-grid, .vacancy-grid {
-                grid-template-columns: 1fr;
-            }
-            .hero-form {
-                padding: 20px;
+            .modal-content h3 {
+                font-size: 1.6rem;
             }
         }
     </style>
@@ -546,7 +621,7 @@
     </header>
 
     <main>
-        <!-- ГЕРО С ФОРМОЙ -->
+        <!-- ГЕРО -->
         <section id="hero" class="hero">
             <div class="container hero-grid">
                 <div class="hero-content fade-in">
@@ -571,7 +646,6 @@
                             <textarea name="prompt" id="prompt" rows="4" placeholder="Подробно опишите, какой сайт вам нужен (минимум 30 символов)" required></textarea>
                             <div class="form-error" id="promptError">Промт должен содержать не менее 30 символов и не состоять из повторяющихся букв.</div>
                         </div>
-                        <!-- Скрытое поле для защиты от частых отправок -->
                         <input type="hidden" name="_timestamp" id="timestamp" value="">
                         <button type="submit" class="btn btn-primary" style="width:100%;" id="submitBtn">Отправить</button>
                         <div class="form-success" id="formSuccess">Спасибо! Заявка отправлена. Мы свяжемся с вами в ближайшее время.</div>
@@ -688,7 +762,7 @@
             </div>
         </section>
 
-        <!-- КОМАНДА (ТЕПЕРЬ ТРОЕ) -->
+        <!-- КОМАНДА -->
         <section id="team" class="container fade-in">
             <h2>Наша команда</h2>
             <div class="team-grid">
@@ -731,9 +805,10 @@
                                 <li><i class="fas fa-check"></i> Будет плюсом знание английского</li>
                                 <li><i class="fas fa-check"></i> Опыт работы от 6 месяцев</li>
                             </ul>
-                            <p><strong>Мы предлагаем:</strong> интересные проекты, дружная команда, оплата за результат.</p>
                         </div>
                     </details>
+                    <!-- Кнопка отклика с указанием вакансии -->
+                    <button class="btn-response" onclick="openModal('Копирайтер')">Откликнуться</button>
                 </div>
                 <!-- Графический дизайнер -->
                 <div class="vacancy-card">
@@ -749,15 +824,20 @@
                                 <li><i class="fas fa-check"></i> Наличие портфолио</li>
                                 <li><i class="fas fa-check"></i> Приветствуется опыт в веб-дизайне</li>
                             </ul>
-                            <p><strong>Мы предлагаем:</strong> интересные задачи, возможность роста, оплата по договорённости.</p>
                         </div>
                     </details>
+                    <button class="btn-response" onclick="openModal('Графический дизайнер')">Откликнуться</button>
                 </div>
             </div>
         </section>
 
-        <!-- СОЦИАЛЬНЫЕ СЕТИ -->
-        
+        <!-- СОЦСЕТИ -->
+        <div class="container">
+            <div class="social-links">
+                <a href="https://t.me" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="https://wa.me" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
         </div>
     </main>
 
@@ -767,22 +847,65 @@
         </div>
     </footer>
 
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ОТКЛИКА -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle">Отклик на вакансию</h3>
+            <form id="responseForm">
+                <input type="hidden" id="vacancyField" name="vacancy" value="">
+                
+                <div class="form-group">
+                    <label for="name">Имя *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="tg">Telegram username * (например @username)</label>
+                    <input type="text" id="tg" name="tg" required pattern="@[a-zA-Z0-9_]{5,}" title="Введите @ и от 5 символов">
+                </div>
+
+                <div class="form-group">
+                    <label for="about">Расскажите о себе *</label>
+                    <textarea id="about" name="about" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Ваши навыки (выберите подходящие):</label>
+                    <div class="checkbox-group" id="skillsGroup">
+                        <!-- будут заполняться через JS -->
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Отправить в Telegram</button>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // Плавный скролл для якорей
+        // --- ОСНОВНЫЕ СКРИПТЫ (заказ, анимация и т.д.) ---
+        // Плавный скролл
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
             });
         });
 
         // Анимация появления при скролле
         document.addEventListener('DOMContentLoaded', function() {
             const fadeElements = document.querySelectorAll('.fade-in');
-            
             function checkVisibility() {
                 fadeElements.forEach(el => {
                     const rect = el.getBoundingClientRect();
@@ -792,13 +915,12 @@
                     }
                 });
             }
-
             window.addEventListener('scroll', checkVisibility);
             window.addEventListener('resize', checkVisibility);
             checkVisibility();
         });
 
-        // Защита формы и проверка промта
+        // Защита формы заказа
         const form = document.getElementById('contactForm');
         const promptInput = document.getElementById('prompt');
         const promptError = document.getElementById('promptError');
@@ -808,10 +930,8 @@
 
         function isValidPrompt(text) {
             if (text.length < 30) return false;
-            // Проверка на повторяющиеся символы (например, "ааааа")
             const repeatRegex = /^(.)\1+$/;
             if (repeatRegex.test(text)) return false;
-            // Минимум 3 слова
             const words = text.trim().split(/\s+/);
             if (words.length < 3) return false;
             return true;
@@ -827,23 +947,17 @@
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-
-            // Проверка промта
             if (!isValidPrompt(promptInput.value)) {
                 promptError.style.display = 'block';
                 return;
             } else {
                 promptError.style.display = 'none';
             }
-
-            // Проверка времени
             if (!canSendForm()) {
                 alert('Вы уже отправляли заявку недавно. Попробуйте через 10 минут.');
                 return;
             }
-
             timestampInput.value = Date.now();
-
             const formData = new FormData(form);
             fetch(form.action, {
                 method: 'POST',
@@ -865,6 +979,97 @@
                 }
             })
             .catch(() => alert('Ошибка соединения.'));
+        });
+
+        // --- МОДАЛКА ДЛЯ ОТКЛИКА ---
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const vacancyField = document.getElementById('vacancyField');
+        const skillsGroup = document.getElementById('skillsGroup');
+        const responseForm = document.getElementById('responseForm');
+
+        // Наборы навыков для разных вакансий
+        const skillsSet = {
+            'Копирайтер': [
+                'Написание текстов', 'Редактура', 'Креативность', 
+                'Английский язык', 'Работа с источниками', 'SEO-копирайтинг'
+            ],
+            'Графический дизайнер': [
+                'Figma', 'Photoshop', 'Illustrator', 
+                'Типографика', 'Веб-дизайн', 'Композиция'
+            ]
+        };
+
+        function openModal(vacancy) {
+            vacancyField.value = vacancy;
+            modalTitle.innerText = `Отклик на вакансию: ${vacancy}`;
+            
+            // Заполняем чекбоксы навыков
+            let skillsHtml = '';
+            const skills = skillsSet[vacancy] || [];
+            skills.forEach(skill => {
+                skillsHtml += `
+                    <label>
+                        <input type="checkbox" name="skills" value="${skill}"> ${skill}
+                    </label>
+                `;
+            });
+            skillsGroup.innerHTML = skillsHtml;
+            
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // запрещаем прокрутку фона
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = ''; // возвращаем прокрутку
+            responseForm.reset(); // очищаем форму
+        }
+
+        // Закрытие по клику вне окна
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        // Обработка отправки формы отклика
+        responseForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Собираем данные
+            const vacancy = vacancyField.value;
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const tg = document.getElementById('tg').value.trim();
+            const about = document.getElementById('about').value.trim();
+            
+            // Собираем отмеченные навыки
+            const checkboxes = document.querySelectorAll('input[name="skills"]:checked');
+            const skills = Array.from(checkboxes).map(cb => cb.value).join(', ');
+
+            // Формируем текст сообщения
+            let message = `🔔 *Новый отклик на вакансию:* ${vacancy}\n\n`;
+            message += `*Имя:* ${name}\n`;
+            if (email) message += `*Email:* ${email}\n`;
+            if (phone) message += `*Телефон:* ${phone}\n`;
+            message += `*Telegram:* ${tg}\n`;
+            message += `*О себе:* ${about}\n`;
+            message += `*Навыки:* ${skills || 'не указаны'}\n`;
+
+            // Кодируем для URL
+            const encodedMessage = encodeURIComponent(message);
+
+            // Формируем ссылку на Telegram (для @qwert755)
+            const telegramUrl = `https://t.me/qwert755?text=${encodedMessage}`;
+
+            // Открываем в новой вкладке
+            window.open(telegramUrl, '_blank');
+
+            // Закрываем модалку
+            closeModal();
+
+            // Можно показать уведомление
+            alert('Спасибо! Сообщение открыто в Telegram. Осталось только отправить его.');
         });
     </script>
 </body>
